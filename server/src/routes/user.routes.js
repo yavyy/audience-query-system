@@ -11,7 +11,7 @@ router.use(verifyJWT)
 
 
 // Get available agents for assignment
-router.route('/agent/available').get(getAvailableAgents)
+router.route('/agents/available').get(getAvailableAgents)
 
 
 // CRUD operations
