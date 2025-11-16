@@ -46,20 +46,25 @@ const verifyRefreshToken = (token) => {
   }
 }
 
+const isProduction = process.env.NODE_ENV === 'production'
+
+const cookieOptions = {
+  httpOnly: true,
+  secure: isProduction,
+  sameSite: isProduction ? 'none' : 'lax', // lax for dev,
+  partitioned: isProduction
+}
+
 // Set tokens in cookies
 const setTokenCookies = (res, accessToken, refreshToken) => {
   res.cookie('accessToken', accessToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // lax for dev,
+    ...cookieOptions,
     maxAge: 15 * 60 * 1000 // 15 minutes
   })
 
   // refresh token
   res.cookie('refreshToken', refreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // lax for dev,
+    ...cookieOptions,
     maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
   })
 }
