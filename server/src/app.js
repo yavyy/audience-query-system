@@ -10,7 +10,7 @@ const server = http.createServer(app)
 //socket.io setup
 const io = new Server(server, {
   cors: {
-    origin: process.env.NODE_ENV === 'development' ? 'http://localhost:5173' : process.env.CLIENT_UR,
+    origin: process.env.NODE_ENV === 'development' ? 'http://localhost:5173' : process.env.CLIENT_URL,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     credentials: true
   }
